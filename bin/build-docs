@@ -9,8 +9,6 @@ exit 0
 fi
 
 cd "${0:A:h:h}"
-ls -la .
-pwd
 
 if [ ! -e Sparrow ]; then
   ln -s "$SPARROW_PATH" Sparrow
@@ -21,5 +19,22 @@ if ! which parcel > /dev/null; then
   npm install -g parcel-bundler
 fi
 
-ls .
-parcel index.html
+# Schema
+schema=Sparrow/backend/sparrow/sql/02-create-tables.sql
+
+function watch-schema() {
+  # `entr` watches schema for changes
+  echo "$schema" \
+  | entr cat $schema \
+  | bin/sql-to-markdown \
+  | pandoc -f markdown -o dist/schema-body.html
+}
+
+# Run the two watchers in parallel
+parcel index.html &
+P1=$!
+watch-schema &
+P2=$!
+wait $P1 $P2
+
+
