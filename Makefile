@@ -1,9 +1,9 @@
-all: output/schema.html
+all: dist/schema.html
 
-output:
+dist:
 	mkdir -p $@
 
-output/schema.html: ../backend/sparrow/sql/02-create-tables.sql | sql-to-markdown output
+dist/schema.html: Sparrow/backend/sparrow/sql/02-create-tables.sql | dist
 	cat $^ \
-	| ./sql-to-markdown \
+	| bin/sql-to-markdown \
 	| pandoc --standalone -f markdown -o $@
