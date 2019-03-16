@@ -8,7 +8,18 @@ build documentation."
 exit 0
 fi
 
-cd "${0:h:h}"
+cd "${0:A:h:h}"
+ls -la .
+pwd
+
 if [ ! -e Sparrow ]; then
   ln -s "$SPARROW_PATH" Sparrow
 fi
+
+# Install the parcel bundler
+if ! which parcel > /dev/null; then
+  npm install -g parcel-bundler
+fi
+
+ls .
+parcel index.html

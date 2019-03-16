@@ -1,2 +1,4 @@
 Sparrow
 dist
+node_modules
+.cache
