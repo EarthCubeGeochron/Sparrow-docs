@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+if [ -z $SPARROW_PATH ]; then
+  echo -e <<EOF
+Environment variable \033[1mSPARROW_PATH\033[0m must be set
+and point to the \033[1mSparrow\033[0m code directory to
+build documentation.
+EOF
+fi
+
+cd "${0:h:h}"
+ln -s "$SPARROW_PATH" ./Sparrow
+
