@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+# Deploy static website to birdnest
+
+cd "$(git rev-parse --show-toplevel)"
+REMOTE_BASE=birdnest:/projects/sparrow-data.org
+
+rsync -azv --delete dist/ "$REMOTE_BASE/htdocs/"
+rsync -azv --delete conf.d/ "$REMOTE_BASE/conf.d/"
+scp docker-compose.yaml "$REMOTE_BASE"

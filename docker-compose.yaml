@@ -1,0 +1,13 @@
+version: "3"
+services:
+  gateway:
+    build: .
+    ports:
+      - 8080:80/tcp
+      - 8443:443/tcp
+    volumes:
+      - ./htdocs:/www/data
+      - ./conf.d:/etc/nginx/conf.d/
+    environment:
+      - ENABLE_IPV6=true
+      - CERTBOT_EMAIL=daven.quinn@wisc.edu
